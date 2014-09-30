@@ -1,40 +1,23 @@
 {
   "device_name": "<%= @hostname %>",
-  "listening_port" : <%= @listening_port %>, // 0 - randomize port
-
-/* storage_path dir contains auxilliary app files if no storage_path field: .sync dir created in the directory
-   where binary is located. otherwise user-defined directory will be used */
+  "listening_port" : <%= @listening_port %>,
   "storage_path" : "<%= @config_folder %>",
-
-/* set location of pid file */
   "pid_file" : "/var/run/btsync/<%= @clean_path %>-btsync.pid",
-
-/* use UPnP for port mapping */
   "use_upnp" : <%= @use_upnp %>,
-
-/* limits in kB/s. 0 - no limit */
   "download_limit" : <%= @download_limit %>,
   "upload_limit" : <%= @upload_limit %>,
-
-/* proxy configuration */
-// "proxy_type" : "socks4", // Valid types: "socks4", "socks5", "http_connect". Any other value means no proxy
-// "proxy_addr" : "192.168.1.2", // IP address of proxy server.
-// "proxy_port" : 1080,
-// "proxy_auth" : false, // Use authentication for proxy. Note: only username/password for socks5 (RFC 1929) is supported, and it is not really secure
-// "proxy_username" : "user",
-// "proxy_password" : "password",
 
   "shared_folders" :
   [
     {
-    "secret" : "<%= @secret %>", // required field - use --generate-secret in command line to create new secret
-      "dir" : "<%= @title %>", // * required field
-      "use_relay_server" : <%= @use_relay_server %>, //  use relay server when direct connection fails
+    "secret" : "<%= @secret %>",
+      "dir" : "<%= @title %>",
+      "use_relay_server" : <%= @use_relay_server %>,
       "use_tracker" : <%= @use_tracker %>,
       "use_dht" : <%= @use_dht %>,
       "search_lan" : <%= @search_lan %>,
-      "use_sync_trash" : <%= @sync_trash %>, // enable SyncArchive to store files deleted on remote devices
-      "overwrite_changes" : <%= @overwrite_changes %> // restore modified files to original version, ONLY for Read-Only folders
+      "use_sync_trash" : <%= @sync_trash %>,
+      "overwrite_changes" : <%= @overwrite_changes %>
     }
   ]
 
