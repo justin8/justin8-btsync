@@ -1,4 +1,4 @@
-define btsync::folder($secret, $path = $title, $owner = 'root', $group = 'root', $sync_trash = 'true')  {
+define btsync::folder($ensure = present, $secret, $path = $title, $owner = 'root', $group = 'root', $sync_trash = true)  {
   include btsync
 
   $int_path = regsubst($path, '/', '')
@@ -7,31 +7,51 @@ define btsync::folder($secret, $path = $title, $owner = 'root', $group = 'root',
   $config_folder = "/var/lib/btsync/custom/${clean_path}"
   $config = "${config_folder}/btsync.conf"
 
-  exec { "${clean_path}-daemon-reload":
-    command     => 'systemctl daemon-reload',
-    refreshonly => true,
-    notify      => Service[$service_name];
-  }
+  if $ensure == 'absent' {
+    # This will print an un-necessary error after it has been removed.
+    # A bug for this is already open with puppet: PUP-2188
+    service { $service_name:
+      ensure => stopped,
+      enable => false,
+    }
 
-  # TODO: Handle the key being changed, would require purging and recreating config directories
-  file {
-    "/etc/systemd/system/${service_name}":
-      content => template('btsync/folder.service.erb'),
-      notify  => Exec["${clean_path}-daemon-reload"];
+    file {
+      [ $path,
+        $config_folder,
+        $config,
+        "/etc/systemd/system/${service_name}" ]:
+        ensure  => absent,
+        require => Service[$service_name];
+    }
+  } else {
 
-    [ $path, $config_folder ]:
-      ensure => directory,
-      owner  => $owner,
-      group  => $group;
+    exec { "${clean_path}-daemon-reload":
+      command     => 'systemctl daemon-reload',
+      refreshonly => true,
+      notify      => Service[$service_name];
+    }
 
-    $config:
-      content => template('btsync/folder.conf.erb'),
-      notify  => Service[$service_name];
-  }
+    # TODO: Handle the key being changed, would require purging and recreating config directories
+    file {
+      "/etc/systemd/system/${service_name}":
+        content => template('btsync/folder.service.erb'),
+        notify  => Exec["${clean_path}-daemon-reload"];
 
-  service { $service_name:
-    ensure => running,
-    enable => true,
+      [ $path, $config_folder ]:
+        ensure => directory,
+        owner  => $owner,
+        group  => $group;
+
+      $config:
+        content => template('btsync/folder.conf.erb'),
+        notify  => Service[$service_name];
+    }
+
+    service { $service_name:
+      ensure => running,
+      enable => true,
+    }
+
   }
 
 }
