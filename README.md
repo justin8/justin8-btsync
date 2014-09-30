@@ -96,7 +96,7 @@ Limit the upload speed for this folder. Default: 0
 ####`use_relay_server`
 Use relay server when direct connection fails. Default: false
 
-####`use_tracker
+####`use_tracker`
 Use a torrent tracker to find peers. Default: false
 
 ####`use_dht`
