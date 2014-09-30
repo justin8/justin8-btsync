@@ -26,6 +26,7 @@ Syncing individual folders
 --------------------------
 
 Declare a folder to be synced. This will create an individual service per folder.
+Lots more options are available below.
 
 ```puppet
 btsync::folder { '/path/to/folder':
@@ -33,7 +34,6 @@ btsync::folder { '/path/to/folder':
     path   => '/alternate/path/instead/of/title',
     owner  => 'root',
     group  => 'root',
-    sync_trash => true,
 }
 ```
 
@@ -81,8 +81,36 @@ The owner for the folder and subdirectories
 ####`group`
 The group for the folder and subdirectories
 
+####`listening_port`
+Port for the daemon to listen on. 0 will randomize on start. Default: 0
+
+####`use_upnp`
+Use UPnP for port mapping Default: true
+
+####`download_limit`
+Limit the download speed for this folder. Default: 0
+
+####`upload_limit`
+Limit the upload speed for this folder. Default: 0
+
+####`use_relay_server`
+Use relay server when direct connection fails. Default: false
+
+####`use_tracker
+Use a torrent tracker to find peers. Default: false
+
+####`use_dht`
+Use DHT to find peers. Default: true
+
+####`search_lan`
+Search for peers on the local network. Default: true
+
 ####`sync_trash`
-The sync_trash parameter from btsync.conf
+Enable SyncArchive to store files deleted on remote devices. Default: true
+
+####`overwrite_changes`
+Restore modified files to original version, ONLY for Read-Only folders. Default: false
+
 
 TODO
 ----

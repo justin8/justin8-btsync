@@ -1,4 +1,19 @@
-define btsync::folder($ensure = present, $secret, $path = $title, $owner = 'root', $group = 'root', $sync_trash = true)  {
+define btsync::folder(
+  $ensure = present,
+  $secret,
+  $path = $title,
+  $owner = 'root',
+  $group = 'root',
+  $listening_port = 0,
+  $use_upnp = true,
+  $download_limit = 0,
+  $upload_limit = 0,
+  $use_relay_server = false,
+  $use_tracker = false,
+  $use_dht = true,
+  $search_lan = true,
+  $sync_trash = true,
+  $overwrite_changes = false)  {
   include btsync
 
   $int_path = regsubst($path, '/', '')
