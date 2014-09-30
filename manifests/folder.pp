@@ -16,6 +16,24 @@ define btsync::folder(
   $overwrite_changes = false)  {
   include btsync
 
+  validate_absolute_path($path)
+  validate_bool($use_relay_server, $use_tracker, $use_dht, $search_lan, $sync_trash, $overwrite_changes)
+  validate_re($listening_port, '\d+')
+  validate_re($download_limit, '\d+')
+  validate_re($upload_limit, '\d+')
+
+  if ! is_numeric($listening_port) {
+    fail("Btsync::Folder[$title]: listening_port should be a number")
+  }
+
+  if ! is_numeric($download_limit) {
+    fail("Btsync::Folder[$title]: download_limit should be a number")
+  }
+
+  if ! is_numeric($upload_limit) {
+    fail("Btsync::Folder[$title]: upload_limit should be a number")
+  }
+
   $int_path = regsubst($path, '/', '')
   $clean_path = regsubst($int_path, '/', '-', 'G')
   $service_name = "${clean_path}-btsync.service"
