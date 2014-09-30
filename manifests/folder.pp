@@ -17,7 +17,7 @@ define btsync::folder(
   include btsync
 
   validate_absolute_path($path)
-  validate_bool($use_relay_server, $use_tracker, $use_dht, $search_lan, $sync_trash, $overwrite_changes)
+  validate_bool($use_upnp, $use_relay_server, $use_tracker, $use_dht, $search_lan, $sync_trash, $overwrite_changes)
   validate_re($listening_port, '\d+')
   validate_re($download_limit, '\d+')
   validate_re($upload_limit, '\d+')
