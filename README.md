@@ -1,7 +1,7 @@
 Overview
 --------
 
-The btsync puppet module allows you to manage multiple BitTorrent Sync instances with Puppet.
+The btsync puppet module allows you to manage multiple BitTorrent Sync instances with Puppet and systemd.
 
 
 Usage
@@ -51,20 +51,49 @@ Resources:
 
 ###Class: btsync
 Install btsync.
-You should not declare this class explicitely, it should be done by btsync class.
+You should not declare this class explicitely, it should be done by either the
+btsync::system or btsync::folder classes.
 
 ###Class: btsync::system
 This resource is used to declare a system-wide btsync daemon to be run.
 
-####`webui`
-Whether the webui should be available remotely or not. Valid settings: 'local' or 'remote'. Defaults to 'local'
+####`listening_port`
+The port the daemon should listen on for new connections. (NOT the webui port).
+0 is random. Default: 0
+
+####`storage_path`
+The path to store internal data for the btsync application. Default: /var/lib/btsync
+
+####`use_upnp`
+Use UPnP for port mapping Default: true
+
+####`download_limit`
+Limit the download speed for this folder. Default: 0
+
+####`upload_limit`
+Limit the upload speed for this folder. Default: 0
+
+####`webui_listen`
+The address/port on which to run the webui. Default: 127.0.0.1:8888
+
+####`login`
+The login username for the webui. Leaving this and password undefined results
+in the configuration wizard running when you first connect to the webui.
+
+####`password`
+The password for webui access. Leaving this and login undefined results in the
+configuration wizard running when you first connect to the webui.
+
+####`directory_root`
+The default path to show when browsing for a folder in the webui. Default: /
 
 ###Class: btsync::folder
 This resource is used to declare an individual folder that is to be synced.
 Each instance will result in its own service being generated.
 
 ####`ensure`
-Either present or absent. If set to absent it will cause an error after the removal due to bug PUP-2188.
+Either present or absent. If set to absent it will cause an error after the
+removal due to bug PUP-2188.
 
 ####`secret`
 A read/write or read-only secret generated with
@@ -115,6 +144,5 @@ Restore modified files to original version, ONLY for Read-Only folders. Default:
 TODO
 ----
 
-* Support the other options for btsync.conf
 * Create unit tests
 * Add explicit support for extra OSes
