@@ -1,7 +1,7 @@
 Overview
 --------
 
-The btsync puppet module allows you to manage multiple BitTorrent Sync instances with Puppet.
+The btsync puppet module allows you to manage multiple BitTorrent Sync instances with Puppet and systemd.
 
 
 Usage
