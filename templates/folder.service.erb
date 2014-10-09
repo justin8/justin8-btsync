@@ -4,7 +4,7 @@ After=network.target
  
 [Service]
 Type=simple
-User=<%= @user %>
+User=<%= @owner %>
 Group=<%= @group %>
 ExecStart=/usr/bin/btsync --nodaemon --config <%= @config %>
 Restart=on-abort
