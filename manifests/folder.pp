@@ -13,7 +13,8 @@ define btsync::folder(
   $use_dht = true,
   $search_lan = true,
   $sync_trash = true,
-  $overwrite_changes = false)  {
+  $overwrite_changes = false,
+  $ignore_list = [])  {
   include btsync
 
   validate_absolute_path($path)
@@ -70,13 +71,23 @@ define btsync::folder(
         content => template('btsync/folder.service.erb'),
         notify  => Exec["${clean_path}-daemon-reload"];
 
-      [ $path, $config_folder ]:
+      [ $path, "${path}/.sync", $config_folder ]:
         ensure => directory,
         owner  => $owner,
         group  => $group;
 
       $config:
+        ensure => file,
+        owner  => $owner,
+        group  => $group,
         content => template('btsync/folder.conf.erb'),
+        notify  => Service[$service_name];
+
+      "${path}/.sync/IgnoreList":
+        ensure => file,
+        owner  => $owner,
+        group  => $group,
+        content => template('btsync/folder.IgnoreList.erb'),
         notify  => Service[$service_name];
     }
 

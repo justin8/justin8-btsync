@@ -5,6 +5,7 @@ require 'spec_helper'
     let(:facts) { { osfamily: osfamily } }
     let(:title) { '/test/folder' }
     config_file = '/var/lib/btsync/custom/test-folder/btsync.conf'
+    ignore_list = '/test/folder/.sync/IgnoreList'
 
     context 'test default values' do
       let(:params) { { 'secret' => '1' } }
@@ -22,6 +23,7 @@ require 'spec_helper'
       it { should contain_file(config_file).with_content(/"use_sync_trash" : true/) }
       it { should contain_file(config_file).with_content(/"overwrite_changes" : false/) }
       it { should contain_file(config_file).with_content(%r{"pid_file" : "/var/run/btsync/test-folder-btsync.pid"}) }
+      it { should contain_file(ignore_list).with_content(/desktop.ini/) }
     end
 
     context 'test changed values' do
@@ -37,7 +39,8 @@ require 'spec_helper'
                        'use_dht' => false,
                        'search_lan' => false,
                        'sync_trash' => false,
-                       'overwrite_changes' => true } }
+                       'overwrite_changes' => true,
+                       'ignore_list' => [ 'test.file.*', 'foo.bar' ] } }
       it { should contain_file(config_file).with_content(/"secret" : "123456abcdef"/) }
       it { should contain_file(config_file).with_content(%r{"dir" : "/test/folder"}) }
       it { should contain_file(config_file).with_content(/"listening_port" : 9000/) }
@@ -52,6 +55,9 @@ require 'spec_helper'
       it { should contain_file(config_file).with_content(/"use_sync_trash" : false/) }
       it { should contain_file(config_file).with_content(/"overwrite_changes" : true/) }
       it { should contain_file(config_file).with_content(%r{"pid_file" : "/var/run/btsync/test-folder-btsync.pid"}) }
+      it { should contain_file(ignore_list).with_content(/desktop.ini/) }
+      it { should contain_file(ignore_list).with_content(/test\.file\.\*/) }
+      it { should contain_file(ignore_list).with_content(/foo\.bar/) }
     end
   end
 end
