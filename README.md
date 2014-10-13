@@ -140,6 +140,9 @@ Enable SyncArchive to store files deleted on remote devices. Default: true
 ####`overwrite_changes`
 Restore modified files to original version, ONLY for Read-Only folders. Default: false
 
+####`ignore_list`
+An array of entries to add to the IgnoreList file. The default list (desktop.ini, .DS_Store, etc) will always be active. Default: []
+
 
 TODO
 ----
