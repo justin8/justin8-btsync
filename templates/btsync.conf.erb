@@ -9,10 +9,11 @@
   "webui" :
   {
     "listen" : "<%= @webui_listen %>"
-<%- if @login != undef -%>
+<%- if @login -%>
     ,"login" : "<%= @login %>"
 <%- end -%>
-<%- if @password != undef -%>
+<%- if @password -%>
+    ,"password" : "<%= @password %>"
 <%- end -%>
     ,"directory_root" : "<%= @directory_root %>"
   }
