@@ -72,9 +72,10 @@ define btsync::folder(
         notify  => Exec["${clean_path}-daemon-reload"];
 
       [ $path, "${path}/.sync", $config_folder ]:
-        ensure => directory,
-        owner  => $owner,
-        group  => $group;
+        ensure  => directory,
+        recurse => true,
+        owner   => $owner,
+        group   => $group;
 
       $config:
         ensure => file,
