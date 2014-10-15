@@ -10,7 +10,7 @@ class btsync( $webui = 'local' ) {
       purge  => true,
       force  => true;
 
-    '/usr/lib/tmpfiles.d/btsync.conf':
+    '/etc/tmpfiles.d/btsync.conf':
       ensure => file,
       source => 'puppet:///modules/btsync/btsync.conf';
   }
