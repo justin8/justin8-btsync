@@ -92,7 +92,7 @@ define btsync::folder(
         notify  => Service[$service_name];
     }
 
-    cron { 'btsync perms':
+    cron { '${path} btsync perms':
       command  => $path,
       minute   => '*',
       hour     => '*',
