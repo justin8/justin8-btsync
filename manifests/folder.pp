@@ -92,15 +92,6 @@ define btsync::folder(
         notify  => Service[$service_name];
     }
 
-    cron { "${path} btsync perms":
-      command  => $path,
-      minute   => '*',
-      hour     => '*',
-      month    => '*',
-      monthday => '*',
-      weekday  => '*',
-    }
-
     service { $service_name:
       ensure => running,
       enable => true,
