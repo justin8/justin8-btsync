@@ -14,6 +14,12 @@ define btsync::folder(
   $search_lan = true,
   $sync_trash = true,
   $overwrite_changes = false,
+  $proxy = false,
+  $proxy_type = 'socks4',
+  $proxy_addr = '127.0.0.1',
+  $proxy_port = '8080',
+  $proxy_username = '',
+  $proxy_password = '',
   $ignore_list = [])  {
   include btsync
 
