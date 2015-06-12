@@ -1,16 +1,16 @@
 
 {
   "name": "justin8-btsync",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": "Justin Dray",
   "summary": "Module for configuring BitTorrent Sync instances",
-  "license": "Apache 2.0",
-  "source": "https://github.com/justin8/puppet-btsync",
-  "project_page": "https://github.com/justin8/puppet-btsync",
-  "issues_url": "https://github.com/justin8/puppet-btsync/issues",
+  "license": "MIT",
+  "source": "https://github.com/justin8/justin8-btsync",
+  "project_page": "https://github.com/justin8/justin8-btsync",
+  "issues_url": "https://github.com/justin8/justin8-btsync/issues",
   "description": "Puppet module for synchronizing folders using BitTorrent Sync",
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 0.1.5"}
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0 < 4.0.0"}
   ],
   "requirements": [
     {"name": "pe","version_requirement": "3.x"},
@@ -29,6 +29,7 @@
     "3.4",
     "3.5",
     "3.6",
-    "3.7"
+    "3.7",
+    "3.8"
   ]
 }

@@ -6,7 +6,7 @@ class btsync::system( $listening_port = 0,
                       $webui_listen = '127.0.0.1:8888',
                       $login = undef,
                       $password = undef,
-                      $directory_root = "/",) {
+                      $directory_root = '/',) {
   include btsync
 
   validate_re($listening_port, '\d+')
@@ -18,8 +18,8 @@ class btsync::system( $listening_port = 0,
 
 
   service { 'btsync':
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
     require => Package['btsync'],
   }
 

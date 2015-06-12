@@ -1,6 +1,6 @@
 define btsync::folder(
-  $ensure = present,
   $secret,
+  $ensure = present,
   $path = $title,
   $owner = 'root',
   $group = 'root',
@@ -30,15 +30,15 @@ define btsync::folder(
   validate_re($upload_limit, '\d+')
 
   if ! is_numeric($listening_port) {
-    fail("Btsync::Folder[$title]: listening_port should be a number")
+    fail("Btsync::Folder[${title}]: listening_port should be a number")
   }
 
   if ! is_numeric($download_limit) {
-    fail("Btsync::Folder[$title]: download_limit should be a number")
+    fail("Btsync::Folder[${title}]: download_limit should be a number")
   }
 
   if ! is_numeric($upload_limit) {
-    fail("Btsync::Folder[$title]: upload_limit should be a number")
+    fail("Btsync::Folder[${title}]: upload_limit should be a number")
   }
 
   $int_path = regsubst($path, '/', '')
