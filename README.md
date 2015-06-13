@@ -1,4 +1,4 @@
-![Build Status](https://travis-ci.org/justin8/justin8-btsync.svg?branch=master)
+[![Build Status](https://travis-ci.org/justin8/justin8-btsync.svg?branch=master)](https://travis-ci.org/justin8/justin8-btsync)
 
 Overview
 --------
