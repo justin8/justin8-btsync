@@ -1,4 +1,5 @@
 class btsync( $webui = 'local' ) {
+  include systemd
 
   package { 'btsync':
     ensure => present,

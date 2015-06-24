@@ -1,5 +1,6 @@
 fixtures:
   repositories:
     stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
+    systemd: git://github.com/justin8/justin8-systemd.git
   symlinks:
     btsync: "#{source_dir}"

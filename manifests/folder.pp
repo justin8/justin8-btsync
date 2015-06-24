@@ -65,17 +65,11 @@ define btsync::folder(
     }
   } else {
 
-    exec { "${clean_path}-daemon-reload":
-      command     => 'systemctl daemon-reload',
-      refreshonly => true,
-      notify      => Service[$service_name];
-    }
-
     # TODO: Handle the key being changed, would require purging and recreating config directories
     file {
       "/etc/systemd/system/${service_name}":
         content => template('btsync/folder.service.erb'),
-        notify  => Exec["${clean_path}-daemon-reload"];
+        notify  => Exec["systemd-daemon-reload"];
 
       [ $path, "${path}/.sync", $config_folder ]:
         ensure  => directory,
