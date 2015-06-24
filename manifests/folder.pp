@@ -69,7 +69,7 @@ define btsync::folder(
     file {
       "/etc/systemd/system/${service_name}":
         content => template('btsync/folder.service.erb'),
-        notify  => Exec["systemd-daemon-reload"];
+        notify  => Exec['systemd-daemon-reload'];
 
       [ $path, "${path}/.sync", $config_folder ]:
         ensure  => directory,
