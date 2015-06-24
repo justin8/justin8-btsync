@@ -1,3 +1,4 @@
+[![Puppet Forge](http://img.shields.io/puppetforge/v/justin8/btsync.svg)](https://forge.puppetlabs.com/justin8/btsync)
 [![Build Status](https://travis-ci.org/justin8/justin8-btsync.svg)](https://travis-ci.org/justin8/justin8-btsync)
 
 Overview
