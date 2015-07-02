@@ -60,6 +60,11 @@ class btsync::system( $listening_port = 0,
     require => Package['btsync'],
   }
 
+  file { "/var/run/btsync/btsync.pid":
+    owner => $user,
+    group => $group,
+  }
+
   cron { 'btsync perms':
     command  => "/usr/bin/chmod -R g+w '${storage_path}'",
     minute   => '*',
