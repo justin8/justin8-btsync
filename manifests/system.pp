@@ -40,6 +40,14 @@ class btsync::system( $listening_port = 0,
     require => Package['btsync'],
   }
 
+  file { '/var/lib/btsync/sync.log':
+    ensure  => file,
+    owner   => 'btsync',
+    group   => 'btsync',
+    mode    => '0664',
+    require => Package['btsync'],
+  }
+
   cron { 'btsync perms':
     command  => '/usr/bin/chmod -R g+w /var/lib/btsync/sync',
     minute   => '*',
