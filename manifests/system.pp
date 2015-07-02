@@ -50,7 +50,13 @@ class btsync::system( $listening_port = 0,
     group   => $group,
     mode    => '2775',
     require => Package['btsync'],
-    notify  => Service['btsync'],
+    notify  => [ Service['btsync'], Exec['fix-btsync-storage-permissions'] ],
+  }
+
+  exec { 'fix-btsync-storage-permissions':
+    path        => $::path,
+    command     => "chown -R ${user}:${group} '${storage_path}'",
+    refreshonly => true,
   }
 
   file { "${storage_path}/sync.log":
