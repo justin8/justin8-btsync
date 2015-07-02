@@ -22,6 +22,7 @@ class btsync::system( $listening_port = 0,
   service { 'btsync':
     ensure  => running,
     enable  => true,
+    require => Exec['systemd-daemon-reload'],
   }
 
   file { '/etc/systemd/system/btsync.service.d':
@@ -31,7 +32,7 @@ class btsync::system( $listening_port = 0,
   file { '/etc/systemd/system/btsync.service.d/user.conf':
     ensure  => present,
     content => template('btsync/user.conf.erb'),
-    notify  => Service['btsync'],
+    notify  => [ Service['btsync'], Exec['systemd-daemon-reload'] ],
   }
 
   file { '/etc/btsync.conf':
