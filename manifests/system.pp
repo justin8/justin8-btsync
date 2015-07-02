@@ -20,7 +20,7 @@ class btsync::system( $listening_port = 0,
   service { 'btsync':
     ensure  => running,
     enable  => true,
-    require => Package['btsync'],
+    require => [ Package['btsync'], File[$storage_path, '/etc/btsync.conf'] ],
   }
 
   file { '/etc/btsync.conf':
@@ -55,6 +55,7 @@ class btsync::system( $listening_port = 0,
     month    => '*',
     monthday => '*',
     weekday  => '*',
+    require  => File[$storage_path],
   }
 
   exec { 'sync permissions':
