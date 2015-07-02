@@ -1,5 +1,7 @@
 class btsync::system( $listening_port = 0,
                       $storage_path = '/var/lib/btsync/system',
+                      $user = 'btsync',
+                      $group = 'btsync',
                       $use_upnp = true,
                       $download_limit = 0,
                       $upload_limit = 0,
@@ -20,12 +22,21 @@ class btsync::system( $listening_port = 0,
   service { 'btsync':
     ensure  => running,
     enable  => true,
-    require => [ Package['btsync'], File[$storage_path, '/etc/btsync.conf'] ],
+  }
+
+  file { '/etc/systemd/system/btsync.service.d':
+    ensure => directory,
+  }
+
+  file { '/etc/systemd/system/btsync.service.d/user.conf':
+    ensure  => present,
+    content => template('btsync/user.conf.erb'),
+    notify  => Service['btsync'],
   }
 
   file { '/etc/btsync.conf':
-    owner   => 'btsync',
-    group   => 'btsync',
+    owner   => $user,
+    group   => $group,
     mode    => '0600',
     require => Package['btsync'],
     notify  => Service['btsync'],
@@ -34,16 +45,17 @@ class btsync::system( $listening_port = 0,
 
   file { $storage_path:
     ensure  => directory,
-    owner   => 'btsync',
-    group   => 'btsync',
+    owner   => $user,
+    group   => $group,
     mode    => '2775',
     require => Package['btsync'],
+    notify  => Service['btsync'],
   }
 
-  file { "${storage_path}//sync.log":
+  file { "${storage_path}/sync.log":
     ensure  => file,
-    owner   => 'btsync',
-    group   => 'btsync',
+    owner   => $user,
+    group   => $group,
     mode    => '0664',
     require => Package['btsync'],
   }
