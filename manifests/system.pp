@@ -1,5 +1,5 @@
 class btsync::system( $listening_port = 0,
-                      $storage_path = '/var/lib/btsync',
+                      $storage_path = '/var/lib/btsync/system',
                       $use_upnp = true,
                       $download_limit = 0,
                       $upload_limit = 0,
@@ -32,7 +32,7 @@ class btsync::system( $listening_port = 0,
     content => template('btsync/btsync.conf.erb'),
   }
 
-  file { '/var/lib/btsync/sync':
+  file { $storage_path:
     ensure  => directory,
     owner   => 'btsync',
     group   => 'btsync',
@@ -40,7 +40,7 @@ class btsync::system( $listening_port = 0,
     require => Package['btsync'],
   }
 
-  file { '/var/lib/btsync/sync.log':
+  file { "${storage_path}//sync.log":
     ensure  => file,
     owner   => 'btsync',
     group   => 'btsync',
@@ -49,7 +49,7 @@ class btsync::system( $listening_port = 0,
   }
 
   cron { 'btsync perms':
-    command  => '/usr/bin/chmod -R g+w /var/lib/btsync/sync',
+    command  => "/usr/bin/chmod -R g+w '${storage_path}'",
     minute   => '*',
     hour     => '*',
     month    => '*',
@@ -58,9 +58,9 @@ class btsync::system( $listening_port = 0,
   }
 
   exec { 'sync permissions':
-    command => 'setfacl -d -m g::rwx /var/lib/btsync/sync',
-    unless  => 'getfacl /var/lib/btsync/sync | grep default',
-    require => File['/var/lib/btsync/sync'],
+    command => "setfacl -d -m g::rwx '${storage_path}'",
+    unless  => "getfacl '${storage_path}' | grep default",
+    require => File[$storage_path],
   }
 
 }
