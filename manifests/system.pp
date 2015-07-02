@@ -67,7 +67,7 @@ class btsync::system( $listening_port = 0,
     require => Package['btsync'],
   }
 
-  file { "/var/run/btsync/btsync.pid":
+  file { '/var/run/btsync/btsync.pid':
     owner  => $user,
     group  => $group,
     before => Service['btsync'],
