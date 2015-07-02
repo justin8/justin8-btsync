@@ -62,8 +62,9 @@ class btsync::system( $listening_port = 0,
   }
 
   file { "/var/run/btsync/btsync.pid":
-    owner => $user,
-    group => $group,
+    owner  => $user,
+    group  => $group,
+    before => Service['btsync'],
   }
 
   cron { 'btsync perms':
