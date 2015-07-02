@@ -38,7 +38,7 @@ class btsync::system( $listening_port = 0,
   file { '/etc/btsync.conf':
     owner   => $user,
     group   => $group,
-    mode    => '0600',
+    mode    => '0644',
     require => Package['btsync'],
     notify  => Service['btsync'],
     content => template('btsync/btsync.conf.erb'),
