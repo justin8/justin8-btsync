@@ -93,8 +93,9 @@ define btsync::folder(
     }
 
     service { $service_name:
-      ensure => running,
-      enable => true,
+      ensure   => running,
+      provider => systemd,
+      enable   => true,
     }
 
   }
