@@ -1,6 +1,10 @@
 class btsync( $webui = 'local' ) {
   include systemd
 
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
+  }
+
   if $::operatingsystem == 'Archlinux' {
     ensure_packages(['btsync'])
   } else {
@@ -12,7 +16,6 @@ class btsync( $webui = 'local' ) {
     }~>
     exec { 'extract-btsync':
       command     => 'tar xf /tmp/btsync.tar.gz btsync; chmod 755 /usr/bin/btsync',
-      cwd         => '/usr/bin',
       refreshonly => true,
     }
 
