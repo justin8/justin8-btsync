@@ -11,6 +11,10 @@ class btsync::system( $listening_port = 0,
                       $directory_root = '/',) {
   include btsync
 
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
+  }
+
   validate_re($listening_port, '\d+')
   validate_absolute_path($storage_path)
   validate_bool($use_upnp)

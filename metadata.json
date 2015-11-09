@@ -1,7 +1,7 @@
 
 {
     "name": "justin8-btsync",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "author": "Justin Dray",
     "summary": "Module for configuring BitTorrent Sync instances",
     "license": "MIT",
