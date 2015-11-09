@@ -16,6 +16,7 @@ class btsync( $webui = 'local' ) {
     }~>
     exec { 'extract-btsync':
       command     => 'tar xf /tmp/btsync.tar.gz btsync; chmod 755 /usr/bin/btsync',
+      cwd         => '/usr/bin',
       refreshonly => true,
     }
 
@@ -27,14 +28,16 @@ class btsync( $webui = 'local' ) {
     user { 'btsync':
       ensure => present,
       home   => '/var/lib/btsync',
-    }~>
-    file { '/var/lib/btsync':
-      owner => 'btsync',
-      group => 'btsync',
+      before => File['/var/lib/btsync']
     }
   }
 
   file {
+    '/var/lib/btsync':
+      ensure => directory,
+      owner  => 'btsync',
+      group  => 'btsync';
+
     '/var/lib/btsync/custom':
       ensure => directory,
       purge  => true,

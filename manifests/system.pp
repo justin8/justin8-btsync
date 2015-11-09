@@ -9,7 +9,7 @@ class btsync::system( $listening_port = 0,
                       $login = undef,
                       $password = undef,
                       $directory_root = '/',) {
-  include btsync
+  contain btsync
 
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
@@ -43,7 +43,6 @@ class btsync::system( $listening_port = 0,
     owner   => $user,
     group   => $group,
     mode    => '0644',
-    require => Package['btsync'],
     notify  => Service['btsync'],
     content => template('btsync/btsync.conf.erb'),
   }
@@ -58,7 +57,6 @@ class btsync::system( $listening_port = 0,
     owner   => $user,
     group   => $group,
     mode    => '2775',
-    require => Package['btsync'],
     notify  => [ Service['btsync'], Exec['fix-btsync-storage-permissions'] ],
   }
 
@@ -73,7 +71,6 @@ class btsync::system( $listening_port = 0,
     owner   => $user,
     group   => $group,
     mode    => '0664',
-    require => Package['btsync'],
   }
 
   file { '/var/run/btsync/btsync.pid':
