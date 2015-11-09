@@ -39,7 +39,7 @@ class btsync( $webui = 'local' ) {
 
     '/etc/tmpfiles.d/btsync.conf':
       ensure => file,
-      source => 'puppet:///modules/btsync/btsync.conf';
+      source => 'puppet:///modules/btsync/btsync.tmpfiles.conf';
 
     '/var/run/btsync':
       ensure => directory,
