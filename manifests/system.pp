@@ -44,6 +44,11 @@ class btsync::system( $listening_port = 0,
     content => template('btsync/btsync.conf.erb'),
   }
 
+  file { '/etc/tmpfiles.d/etc-btsync.conf':
+    require => File['/etc/btsync.conf'],
+    content => template('btsync/system-tmpfiles.conf.erb'),
+  }
+
   file { $storage_path:
     ensure  => directory,
     owner   => $user,
