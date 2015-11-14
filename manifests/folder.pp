@@ -76,7 +76,7 @@ define btsync::folder(
         ensure => file,
         owner  => $owner,
         group  => $group,
-        content => template('btsync/folder.conf.erb'),
+        content => template('btsync/folder-btsync.conf.erb'),
         notify  => Service[$service_name];
 
       "${path}/.sync/IgnoreList":

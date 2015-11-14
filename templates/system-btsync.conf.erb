@@ -2,10 +2,20 @@
   "device_name": "<%= @hostname %>",
   "listening_port" : <%= @listening_port %>,
   "storage_path" : "<%= @storage_path %>",
-  "pid_file" : "/var/run/btsync/btsync.pid",
+  "pid_file" : "<%= @storage_path %>/pid",
   "use_upnp" : <%= @use_upnp %>,
   "download_limit" : <%= @download_limit %>,
   "upload_limit" : <%= @upload_limit %>,
+<%- if @proxy -%>
+  "proxy_type" : "<%= @proxy_type %>",
+  "proxy_addr" : "<%= @proxy_addr %>",
+  "proxy_port" : <%= @proxy_port %>,
+<%- if @proxy_username -%>
+  "proxy_auth" : true,
+  "proxy_username" : "<%= @proxy_username %>",
+  "proxy_password" : "<%= @proxy_password %>",
+<%- end -%>
+<%- end -%>
   "webui" :
   {
     "listen" : "<%= @webui_listen %>"

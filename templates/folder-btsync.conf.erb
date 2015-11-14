@@ -2,7 +2,7 @@
   "device_name": "<%= @hostname %>",
   "listening_port" : <%= @listening_port %>,
   "storage_path" : "<%= @config_folder %>",
-  "pid_file" : "/var/run/btsync/<%= @clean_path %>-btsync.pid",
+  "pid_file" : "<%= @config_folder %>/pid",
   "use_upnp" : <%= @use_upnp %>,
   "download_limit" : <%= @download_limit %>,
   "upload_limit" : <%= @upload_limit %>,

@@ -44,7 +44,7 @@ class btsync::system(
 
   file { '/etc/systemd/system/btsync.service.d/user.conf':
     ensure  => present,
-    content => template('btsync/user.conf.erb'),
+    content => template('btsync/system-service.d.conf.erb'),
     notify  => [ Service['btsync'], Exec['systemd-daemon-reload'] ],
   }
 
@@ -53,7 +53,7 @@ class btsync::system(
     group   => $group,
     mode    => '0644',
     notify  => Service['btsync'],
-    content => template('btsync/btsync.conf.erb'),
+    content => template('btsync/system-btsync.conf.erb'),
   }
 
   file { '/etc/tmpfiles.d/etc-btsync.conf':
