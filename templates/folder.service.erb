@@ -6,6 +6,7 @@ After=network.target
 Type=simple
 User=<%= @owner %>
 Group=<%= @group %>
+Umask=<%= @umask %>
 ExecStart=/usr/bin/btsync --nodaemon --config <%= @config %>
 Restart=on-abort
 
