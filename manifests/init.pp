@@ -43,13 +43,10 @@ class btsync( $webui = 'local' ) {
       purge  => true,
       force  => true;
 
-    '/var/run/btsync':
-      ensure => directory,
-      owner  => 'btsync',
-      group  => 'btsync',
-      mode   => '0775';
-
     '/etc/tmpfiles.d/btsync-etc.conf':
+      ensure => absent;
+
+    '/etc/tmpfiles.d/btsync.conf':
       ensure => absent;
   }
 }

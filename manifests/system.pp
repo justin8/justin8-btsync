@@ -56,11 +56,6 @@ class btsync::system(
     content => template('btsync/system-btsync.conf.erb'),
   }
 
-  file { '/etc/tmpfiles.d/btsync.conf':
-    require => File['/etc/btsync.conf'],
-    content => template('btsync/system-tmpfiles.conf.erb'),
-  }
-
   file { $storage_path:
     ensure  => directory,
     owner   => $user,
