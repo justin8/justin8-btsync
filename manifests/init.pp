@@ -43,15 +43,13 @@ class btsync( $webui = 'local' ) {
       purge  => true,
       force  => true;
 
-    '/etc/tmpfiles.d/btsync.conf':
-      ensure => file,
-      source => 'puppet:///modules/btsync/btsync.tmpfiles.conf';
-
     '/var/run/btsync':
       ensure => directory,
       owner  => 'btsync',
       group  => 'btsync',
-      mode   => '0777';
-  }
+      mode   => '0775';
 
+    '/etc/tmpfiles.d/btsync-etc.conf':
+      ensure => absent;
+  }
 }

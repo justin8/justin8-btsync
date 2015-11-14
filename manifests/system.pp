@@ -56,7 +56,7 @@ class btsync::system(
     content => template('btsync/system-btsync.conf.erb'),
   }
 
-  file { '/etc/tmpfiles.d/etc-btsync.conf':
+  file { '/etc/tmpfiles.d/btsync.conf':
     require => File['/etc/btsync.conf'],
     content => template('btsync/system-tmpfiles.conf.erb'),
   }
@@ -80,22 +80,6 @@ class btsync::system(
     owner   => $user,
     group   => $group,
     mode    => '0664',
-  }
-
-  file { '/var/run/btsync/btsync.pid':
-    owner  => $user,
-    group  => $group,
-    before => Service['btsync'],
-  }
-
-  cron { 'btsync perms':
-    command  => "/usr/bin/chmod -R g+w '${storage_path}'",
-    minute   => '*',
-    hour     => '*',
-    month    => '*',
-    monthday => '*',
-    weekday  => '*',
-    require  => File[$storage_path],
   }
 
   exec { 'sync permissions':
