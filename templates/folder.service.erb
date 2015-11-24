@@ -1,12 +1,12 @@
 [Unit]
 Description=Bittorent Sync service (<%= @path %>)
 After=network.target
- 
+
 [Service]
 Type=simple
 User=<%= @owner %>
 Group=<%= @group %>
-Umask=<%= @umask %>
+UMask=<%= @umask %>
 ExecStart=/usr/bin/btsync --nodaemon --config <%= @config %>
 Restart=on-abort
 
