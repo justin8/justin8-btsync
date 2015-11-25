@@ -8,6 +8,7 @@ User=<%= @owner %>
 Group=<%= @group %>
 UMask=<%= @umask %>
 ExecStart=/usr/bin/btsync --nodaemon --config <%= @config %>
+TimeoutStopSec=10
 Restart=on-abort
 
 [Install]
